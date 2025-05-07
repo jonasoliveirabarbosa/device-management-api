@@ -3,9 +3,11 @@ FROM node:20
 # Set working directory for all build stages.
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json yarn.lock* package-lock.json* ./
 
-RUN yarn install
+RUN yarn cache clean \
+  rm node_modules/ \
+  yarn install --frozen-lockfile
 
 COPY . .
 

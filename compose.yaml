@@ -12,6 +12,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
+    entrypoint: sh -c 'yarn install --frozen-lockfile && yarn start:dev'
     ports:
       - 3000:3000
     depends_on:
@@ -19,6 +20,7 @@ services:
         condition: service_healthy
     volumes:
       - .:/app
+      - /app/node_modules
   db:
     image: postgres
     restart: always
@@ -37,6 +39,3 @@ services:
       retries: 5
 volumes:
   db-data:
-secrets:
-  db-password:
-    file: db/password.txt

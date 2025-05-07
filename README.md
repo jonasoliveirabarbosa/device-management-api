@@ -21,7 +21,7 @@ Prerequisites: Install Docker and Docker Compose.
 ### Clone the repo
 
 ```bash
-git clone https://github.com/your-username/nestjs-device-api.git
+git clone https://github.com/jonasoliveirabarbosa/device-management-api.git
 ```
 
 ### Configure the environment Variables
@@ -33,7 +33,7 @@ Add the variables in .env file on the root folder.
 ```env
 # PostgreSQL
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=testpassword
+POSTGRES_PASSWORD=test
 POSTGRES_HOST=device-management-api-db-1  # Docker service hostname
 POSTGRES_PORT=5432
 POSTGRES_DATABASE=postgres
@@ -45,7 +45,7 @@ PORT=3000
 ### Start the stack
 
 ```bash
-docker-compose up -d  # Runs NestJS + PostgreSQL
+docker-compose up  # Runs NestJS + PostgreSQL
 ```
 
 ### Access resources

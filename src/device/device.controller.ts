@@ -4,38 +4,43 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { DeviceService } from './device.service';
-import { Device } from './device.entity';
+import { DeviceDto, UpdateDeviceDto } from './device.dto';
 
 @Controller('device')
 export class DeviceController {
   constructor(private readonly DeviceService: DeviceService) {}
 
   @Get()
-  async findAll() {
-    return this.DeviceService.findAll();
+  async findAll(@Query() filters: UpdateDeviceDto) {
+    return this.DeviceService.findAll(filters);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.DeviceService.findOne(id);
   }
 
   @Post()
-  async create(@Body() device: Device) {
+  async create(@Body() device: DeviceDto) {
     return this.DeviceService.create(device);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() device: Device) {
+  async update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() device: UpdateDeviceDto,
+  ) {
     return this.DeviceService.update(id, device);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.DeviceService.remove(id);
   }
 }

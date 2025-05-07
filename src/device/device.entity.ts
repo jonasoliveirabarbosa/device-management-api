@@ -13,6 +13,10 @@ export class Device {
   @Column({ type: 'enum', enum: ['available', 'in-use', 'inactive'] })
   state: 'available' | 'in-use' | 'inactive';
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    update: false,
+  })
   createdAt: Date;
 }

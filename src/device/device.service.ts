@@ -78,7 +78,6 @@ export class DeviceService {
     device: Device,
     updateData?: UpdateDeviceDto,
   ): void {
-    console.log(updateData);
     if (device.state === 'in-use') {
       if (
         updateData &&

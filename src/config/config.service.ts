@@ -27,6 +27,8 @@ export class ConfigService {
       username: this.getValue('POSTGRES_USER'),
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
+      autoLoadEntities: true,
+      synchronize: true,
       entities: [Device],
     };
   }

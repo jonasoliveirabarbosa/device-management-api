@@ -12,17 +12,14 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    environment:
-      NODE_ENV: production
     ports:
       - 3000:3000
     depends_on:
       db:
         condition: service_healthy
     volumes:
-      - type: bind
-        source: .
-        target: /usr/src/app
+      - .:/app
+      - /app/node_modules
   db:
     image: postgres
     restart: always

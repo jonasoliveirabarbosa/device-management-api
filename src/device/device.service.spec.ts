@@ -43,10 +43,16 @@ describe('DeviceService', () => {
   describe('findAll', () => {
     it('should return a list of devices', async () => {
       mockRepository.find.mockResolvedValue([mockDevice]);
-      const result = await service.findAll({});
+      const result = await service.findAll({
+        name: '',
+        brand: '',
+        state: 'available',
+      });
       expect(result).toEqual([mockDevice]);
       expect(mockRepository.find).toHaveBeenCalledWith({
-        where: {},
+        where: {
+          state: 'available',
+        },
       });
     });
   });

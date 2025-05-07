@@ -52,7 +52,7 @@ export class DeviceService {
 
   async remove(id: string): Promise<void> {
     const existingDevice = await this.ensureDeviceExists(id);
-    this.ensureDeviceNotInUse(existingDevice);
+    this.ensureDeviceNotInUseDelete(existingDevice);
 
     await this.storeRepository.delete(id);
   }
@@ -76,7 +76,7 @@ export class DeviceService {
 
   private ensureDeviceNotInUse(
     device: Device,
-    updateData?: UpdateDeviceDto,
+    updateData: UpdateDeviceDto,
   ): void {
     if (device.state === 'in-use') {
       if (
@@ -85,10 +85,19 @@ export class DeviceService {
           (updateData.name && updateData.name !== device.name))
       ) {
         throw new HttpException(
-          `Device with id ${device.id} cannot be updated while in use`,
+          `Device with id ${device.id} cannot have the brand or name updated while in use`,
           HttpStatus.BAD_REQUEST,
         );
       }
+    }
+  }
+
+  private ensureDeviceNotInUseDelete(device: Device): void {
+    if (device.state === 'in-use') {
+      throw new HttpException(
+        `Device with id ${device.id} cannot be deleted while in use`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 }
